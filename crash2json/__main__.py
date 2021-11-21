@@ -4,6 +4,11 @@
 
 from _crash2json import Crash2Json
 import argparse
+import sys
+import os
+
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 
 def main():
