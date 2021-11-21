@@ -13,6 +13,7 @@ from crash2json._crash2json import Crash2Json
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("crash_file")
+
     parser.add_argument("--binary_image_list_only", help="parse binary_image_list to json only", action="store_true")
     parser.add_argument("--crashed_thread_state_only", help="parse crashed_thread_state to json only",
                         action="store_true")
@@ -26,6 +27,9 @@ def main():
     parser.add_argument("--other_threads_backtrace_only", help="parse other_threads_backtrace to json only",
                         action="store_true")
     parser.add_argument("--thread0_backtrace_only", help="parse thread0_backtrace to json only", action="store_true")
+
+    parser.add_argument("-s", "--simple", help="output a simple json with only header, exceptionInfo, diagnositcMsg,"
+                                               " Thread0Backtrace", action="store_true")
     parser.add_argument("-o", "--output_name", type=str, help="the .json file you want to save result to, "
                                                               "no need .json suffix", default="")
     args = parser.parse_args()
@@ -69,6 +73,9 @@ def main():
         Crash2Json(crash_file).thread_0_backtrace.toJson(output_name)
         exit(0)
 
+    if args.simple:
+        Crash2Json(crash_file).toSimpleJson(output_name)
+        exit(0)
     Crash2Json(crash_file).toJson(output_name)
 
 

@@ -34,10 +34,19 @@ class Crash2Json:
             "exceptionInformation": self.exception_information.crash_dict,
             "diagnosticMessages": self.diagnostic_message.crash_dict,
             "exceptionBacktrace": self.exception_backtrace.crash_dict,
-            "bacetraceFoThread0": self.thread_0_backtrace.crash_dict,
+            "backtraceFoThread0": self.thread_0_backtrace.crash_dict,
             "backtraceForOtherThreads": self.other_threads_backtrace.crash_dict,
             "crashThreadState": self.crashed_thread_state.crash_dict,
             "binaryImagesList": self.binary_image.crash_dict
+        }
+
+        self.simple_dict = OrderedDict()
+        self.simple_dict = {
+            "header": self.header.crash_dict,
+            "exceptionInformation": self.exception_information.crash_dict,
+            "diagnosticMessages": self.diagnostic_message.crash_dict,
+            "exceptionBacktrace": self.exception_backtrace.crash_dict,
+            "backtraceForThread0": self.thread_0_backtrace.crash_dict,
         }
 
     def toJson(self, filename=""):
@@ -47,6 +56,16 @@ class Crash2Json:
         else:
             json_name = self.crash_file.replace(".crash", "").replace(".Crash", "").replace(".CRASH", "")
         json_str = json.dumps(self.crash_dict)
+        with open('{}.json'.format(json_name), 'w') as json_file:
+            json_file.write(json_str)
+
+    def toSimpleJson(self, filename=""):
+        if filename:
+            path = os.path.abspath(os.path.dirname(self.crash_file)).replace(self.crash_file, "")
+            json_name = path + '/' + filename
+        else:
+            json_name = self.crash_file.replace(".crash", "").replace(".Crash", "").replace(".CRASH", "")
+        json_str = json.dumps(self.simple_dict)
         with open('{}.json'.format(json_name), 'w') as json_file:
             json_file.write(json_str)
 
