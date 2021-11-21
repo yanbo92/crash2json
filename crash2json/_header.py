@@ -81,7 +81,3 @@ class Header:
             json_file.write(json_str)
 
 
-if __name__ == '__main__':
-    header = Header("../testfiles/Insta360 ONE R-2021-11-17-000708.crash")
-    print(header)
-    header.toJson()

@@ -150,7 +150,3 @@ class BacktraceForThread0:
         with open('{}.json'.format(json_name), 'w') as json_file:
             json_file.write(json_str)
 
-if __name__ == '__main__':
-    backtrace = BacktraceForThread0("../testfiles/Insta360 ONE R-2021-11-17-000708.crash")
-    print(backtrace.crash_dict)
-    backtrace.toJson()

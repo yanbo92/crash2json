@@ -121,7 +121,3 @@ class DiagnosticMessage:
         with open('{}.json'.format(json_name), 'w') as json_file:
             json_file.write(json_str)
 
-if __name__ == '__main__':
-    diagnostic_message = DiagnosticMessage("../testfiles/Insta360 ONE R-2021-11-17-000708.crash")
-    print(diagnostic_message)
-    diagnostic_message.toJson()
