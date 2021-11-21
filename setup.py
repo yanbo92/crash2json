@@ -4,6 +4,7 @@
 # @File    : setup.py
 
 from distutils.core import setup
+from setuptools import find_packages
 
 setup(name='crash2json',
       version='1.5',
@@ -11,7 +12,8 @@ setup(name='crash2json',
       author='yanbo92',
       author_email='yanbo92@139.com',
       url='https://github.com/yanbo92/crash2json',
-      packages=['crash2json'],
+      package_dir={'': 'crash2json'},
+      packages = find_packages('crash2json'),
       entry_points={
           'console_scripts': [
               'crash2json = crash2json.__main__:main',
