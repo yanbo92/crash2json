@@ -1,21 +1,19 @@
 # crash2json
 将Apple Crash Report崩溃文件(.crash后缀)解析成json文件的python模块。
+
 A python module to parse .crash file into .json file.
 
-## 安装
-## Install
+## 安装 Install
 ```
 pip install crash2json
 ```
 
-## 使用
-## Usage
+## 使用 Usage
 ```
 crash2json yourcrashreport.crash
 ```
 
-## 其他参数
-## Other Parameters
+## 其他参数 Other Parameters
 ```
 positional arguments:
   crash_file
