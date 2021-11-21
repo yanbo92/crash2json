@@ -6,7 +6,7 @@
 from distutils.core import setup
 
 setup(name='crash2json',
-      version='1.4',
+      version='1.5',
       description='Parse appple crash report to json file',
       author='yanbo92',
       author_email='yanbo92@139.com',
