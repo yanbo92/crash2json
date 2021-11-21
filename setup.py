@@ -7,13 +7,12 @@ from distutils.core import setup
 from setuptools import find_packages
 
 setup(name='crash2json',
-      version='1.8',
+      version='1.9',
       description='Parse appple crash report to json file',
       author='yanbo92',
       author_email='yanbo92@139.com',
       url='https://github.com/yanbo92/crash2json',
-      package_dir={'': 'crash2json'},
-      packages = find_packages('crash2json'),
+      packages=find_packages(),
       entry_points={
           'console_scripts': [
               'crash2json = crash2json.__main__:main',
