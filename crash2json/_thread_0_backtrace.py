@@ -18,53 +18,53 @@ class BacktraceForThread0:
 
     def get_simple_dict(self):
         simple_dict = self.crash_dict
-        for i in simple_dict['stackFrames:']:
-            i.pop('address')
-            i.pop('byteOffset')
+        for i in simple_dict["stackFrames:"]:
+            i.pop("address")
+            i.pop("byteOffset")
         return simple_dict
 
 
     def get_stack_frame_info(self, line):
         """
         转化成dict：
-        {'index': '1', 'binary': 'TouchCanvas', 'address': '0x0000000102afb3d0',
-        'function': 'CanvasView.updateEstimatedPropertiesForTouches(_:)', 'byteOffset': '62416',
-         'position': '(CanvasView.swift:231)'}
+        {"index": "1", "binary": "TouchCanvas", "address": "0x0000000102afb3d0",
+        "function": "CanvasView.updateEstimatedPropertiesForTouches(_:)", "byteOffset": "62416",
+         "position": "(CanvasView.swift:231)"}
 
         :param line: 线程中的一行
         :return: 结果 execute_dict
         """
         # 初始化
-        execute_dict = {'index': "", 'binary': "", 'address': "", 'function': "", 'byteOffset': "", 'position': ""}
-        strs = re.findall(r'\S+', line)
+        execute_dict = {"index": "", "binary": "", "address": "", "function": "", "byteOffset": "", "position": ""}
+        strs = re.findall(r"\S+", line)
 
         # 堆栈序号
-        execute_dict['index'] = strs[0]
+        execute_dict["index"] = strs[0]
 
         # 代码位置，有的话一定在最后，可能没有，所以判断一下内容格式
         if ":" in strs[-1] and ")" in strs[-1]:
-            execute_dict['position'] = strs[-1]
+            execute_dict["position"] = strs[-1]
 
         # 地址，特征明显
         for s in strs:
             if "0x0" in s:
-                execute_dict['address'] = s
+                execute_dict["address"] = s
 
         # 二进制文件，为了处理空格会导致字符串不完整，采用求差值拼接形式
         binary = ""
-        index = strs.index(execute_dict['index'])
-        address = strs.index(execute_dict['address'])
+        index = strs.index(execute_dict["index"])
+        address = strs.index(execute_dict["address"])
         for i in range(index + 1, address):
             binary = binary + strs[i]
-        execute_dict['binary'] = binary
+        execute_dict["binary"] = binary
 
         # 函数名
-        execute_dict['function'] = strs[address + 1]
+        execute_dict["function"] = strs[address + 1]
 
         # 从函数的入口点到函数中的当前指令的字节偏移。 byteOffset
         if "+" in strs:
-            plus = strs.index('+')
-            execute_dict['byteOffset'] = strs[plus + 1]
+            plus = strs.index("+")
+            execute_dict["byteOffset"] = strs[plus + 1]
 
         return execute_dict
 
@@ -133,7 +133,7 @@ class BacktraceForThread0:
     def get_thread_info(self, thread):
 
         # 初始化
-        exception_dict = {'name': "", 'stackFrames:': []}
+        exception_dict = {"name": "", "stackFrames:": []}
 
         # 线程内容分行
         thread_lines = thread.split("\n")
@@ -141,21 +141,20 @@ class BacktraceForThread0:
         for line in thread_lines:
             if "name:" in line:
                 strs = line.split("name:")
-                exception_dict['name'] = strs[1]
+                exception_dict["name"] = strs[1]
             else:
                 if "0x" in line:
-                    exception_dict['stackFrames:'].append(self.get_stack_frame_info(line))
+                    exception_dict["stackFrames:"].append(self.get_stack_frame_info(line))
 
         return exception_dict
 
     def toJson(self, filename=""):
         if filename:
             path = os.path.abspath(os.path.dirname(self.crash_file)).replace(self.crash_file, "")
-            json_name = path + '/' + filename
+            json_name = path + "/" + filename
         else:
             json_name = self.crash_file.replace(".crash", "").replace(".Crash", "").replace(".CRASH", "")
             json_name = json_name + "-back_trace_for_thread_0"
         json_str = json.dumps(self.crash_dict)
-        with open('{}.json'.format(json_name), 'w') as json_file:
+        with open("{}.json".format(json_name), "w") as json_file:
             json_file.write(json_str)
-

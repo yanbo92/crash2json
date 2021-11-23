@@ -18,9 +18,9 @@ class DiagnosticMessage:
         """
         从.crash文件中获取诊断信息：
             {
-            'Termination Reason:': ' Namespace SPRINGBOARD, Code 0x8badf00d',
-            'Termination Description:': ' SPRINGBOARD, <RBSTerminateContext| domain:10 code:0x8BADF00D explanation:scene-update watchdog transgression: application<com.insta360.oner>:39563 exhausted real (wall clock) time allowance of 10.00 seconds | ProcessVisibility: Foreground | ProcessState: Running | WatchdogEvent: scene-update | WatchdogVisibility: Foreground | WatchdogCPUStatistics: ( | "Elapsed total CPU time (seconds): 32.550 (user 32.550, system 0.000), 54% CPU", | "Elapsed application CPU time (seconds): 15.526, 26% CPU" | ) reportType:CrashLog maxTerminationResistance:Interactive>',
-             'Triggered by Thread:': '  0'}
+            "Termination Reason:": " Namespace SPRINGBOARD, Code 0x8badf00d",
+            "Termination Description:": " SPRINGBOARD, <RBSTerminateContext| domain:10 code:0x8BADF00D explanation:scene-update watchdog transgression: application<com.insta360.oner>:39563 exhausted real (wall clock) time allowance of 10.00 seconds | ProcessVisibility: Foreground | ProcessState: Running | WatchdogEvent: scene-update | WatchdogVisibility: Foreground | WatchdogCPUStatistics: ( | "Elapsed total CPU time (seconds): 32.550 (user 32.550, system 0.000), 54% CPU", | "Elapsed application CPU time (seconds): 15.526, 26% CPU" | ) reportType:CrashLog maxTerminationResistance:Interactive>",
+             "Triggered by Thread:": "  0"}
 
 
         :param filename: 崩溃文件名
@@ -28,8 +28,8 @@ class DiagnosticMessage:
         """
 
         # 初始化
-        diagnostic_msg_dict = {'Termination Reason:': {"NameSpace": "", "Code": ""},
-                          'Termination Description:': {}, 'Triggered by Thread:': ""}
+        diagnostic_msg_dict = {"Termination Reason:": {"NameSpace": "", "Code": ""},
+                          "Termination Description:": {}, "Triggered by Thread:": ""}
 
         # 字符串处理子方法
         def get_diagnostic_value(string, exception_type):
@@ -86,38 +86,37 @@ class DiagnosticMessage:
 
         for line in lines:
            
-
-            if not diagnostic_msg_dict['Termination Reason:']['NameSpace']:
-                terminate_reason = get_diagnostic_value(line, 'Termination Reason:')
+            if not diagnostic_msg_dict["Termination Reason:"]["NameSpace"]:
+                terminate_reason = get_diagnostic_value(line, "Termination Reason:")
                 if terminate_reason:
                     terminate_reason = str(terminate_reason)
                     name_space = terminate_reason.split(",")[0].split(" ")[2]
-                    diagnostic_msg_dict['Termination Reason:']['NameSpace'] = name_space
+                    diagnostic_msg_dict["Termination Reason:"]["NameSpace"] = name_space
 
-            if not diagnostic_msg_dict['Termination Reason:']['Code']:
-                terminate_reason = get_diagnostic_value(line, 'Termination Reason:')
+            if not diagnostic_msg_dict["Termination Reason:"]["Code"]:
+                terminate_reason = get_diagnostic_value(line, "Termination Reason:")
                 if terminate_reason:
                     terminate_reason = str(terminate_reason)
                     code = terminate_reason.split(",")[1].split(" ")[2]
-                    diagnostic_msg_dict['Termination Reason:']['Code'] = code
+                    diagnostic_msg_dict["Termination Reason:"]["Code"] = code
 
-            if not diagnostic_msg_dict['Termination Description:']:
+            if not diagnostic_msg_dict["Termination Description:"]:
                 if "Termination Description:" in line:
-                    diagnostic_msg_dict['Termination Description:'] = get_termination_description(line)
+                    diagnostic_msg_dict["Termination Description:"] = get_termination_description(line)
 
-            if not diagnostic_msg_dict['Triggered by Thread:']:
-                diagnostic_msg_dict['Triggered by Thread:'] = get_diagnostic_value(line, 'Triggered by Thread:')
+            if not diagnostic_msg_dict["Triggered by Thread:"]:
+                diagnostic_msg_dict["Triggered by Thread:"] = get_diagnostic_value(line, "Triggered by Thread:")
 
         return diagnostic_msg_dict
 
     def toJson(self, filename=""):
         if filename:
             path = os.path.abspath(os.path.dirname(self.crash_file)).replace(self.crash_file, "")
-            json_name = path + '/' + filename
+            json_name = path + "/" + filename
         else:
             json_name = self.crash_file.replace(".crash", "").replace(".Crash", "").replace(".CRASH", "")
             json_name = json_name + "-diagnostic_messages"
         json_str = json.dumps(self.crash_dict)
-        with open('{}.json'.format(json_name), 'w') as json_file:
+        with open("{}.json".format(json_name), "w") as json_file:
             json_file.write(json_str)
 
