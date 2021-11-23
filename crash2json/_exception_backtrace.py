@@ -96,11 +96,12 @@ class ExceptionBacktrace:
 
         threads_list = crash_thread_str.split("\n\n")
 
-        # 干掉最后一个空的
-        threads_list.pop()
+        if threads_list.__len__() > 1:
+            # 干掉最后一个空的
+            threads_list.pop()
 
-        # 干掉第一个回车
-        threads_list[0] = threads_list[0][1:]
+            # 干掉第一个回车
+            threads_list[0] = threads_list[0][1:]
 
         return threads_list
 

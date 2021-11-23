@@ -18,7 +18,7 @@ class BacktraceForThread0:
 
     def get_simple_dict(self):
         simple_dict = self.crash_dict
-        for i in simple_dict["stackFrames:"]:
+        for i in simple_dict["stackFrames"]:
             i.pop("address")
             i.pop("byteOffset")
         return simple_dict
