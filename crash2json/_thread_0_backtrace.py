@@ -28,14 +28,14 @@ class BacktraceForThread0:
         """
         转化成dict：
         {"index": "1", "binary": "TouchCanvas", "address": "0x0000000102afb3d0",
-        "function": "CanvasView.updateEstimatedPropertiesForTouches(_:)", "byteOffset": "62416",
+        "functionName": "CanvasView.updateEstimatedPropertiesForTouches(_:)", "byteOffset": "62416",
          "position": "(CanvasView.swift:231)"}
 
         :param line: 线程中的一行
         :return: 结果 execute_dict
         """
         # 初始化
-        execute_dict = {"index": "", "binary": "", "address": "", "function": "", "byteOffset": "", "position": ""}
+        execute_dict = {"index": "", "binary": "", "address": "", "functionName": "", "byteOffset": "", "position": ""}
         strs = re.findall(r"\S+", line)
 
         # 堆栈序号
@@ -59,7 +59,7 @@ class BacktraceForThread0:
         execute_dict["binary"] = binary
 
         # 函数名
-        execute_dict["function"] = strs[address + 1]
+        execute_dict["functionName"] = strs[address + 1]
 
         # 从函数的入口点到函数中的当前指令的字节偏移。 byteOffset
         if "+" in strs:
