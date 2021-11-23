@@ -29,7 +29,8 @@ class ExceptionInformation:
         """
 
         # 初始化
-        exception_dict = {"Exception Type": "", "Exception Codes": "", "Exception Note": ""}
+        exception_dict = {"Exception Type": "", "Exception Codes": "", "Exception Note": "", "Exception Subtype": "",
+                          "VM Region Info": ""}
 
         # 字符串处理子方法
         def get_exception_value(string, exception_type):
@@ -50,6 +51,12 @@ class ExceptionInformation:
 
             if not exception_dict["Exception Note"]:
                 exception_dict["Exception Note"] = get_exception_value(line, "Exception Note:")
+
+            if not exception_dict["Exception Subtype"]:
+                exception_dict["Exception Subtype"] = get_exception_value(line, "Exception Subtype:")
+
+            if not exception_dict["VM Region Info"]:
+                exception_dict["VM Region Info"] = get_exception_value(line, "VM Region Info:")
 
         return exception_dict
 

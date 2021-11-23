@@ -28,8 +28,8 @@ class DiagnosticMessage:
         """
 
         # 初始化
-        diagnostic_msg_dict = {"Termination Reason": {"NameSpace": "", "Code": ""},
-                               "Termination Description": {}, "Triggered by Thread": ""}
+        diagnostic_msg_dict = {"Termination Reason": {"NameSpace": "", "Code": ""},  "Termination Description": {},
+                               "Termination Signal": "", "Terminating Process": "", "Triggered by Thread": ""}
 
         # 字符串处理子方法
         def get_diagnostic_value(string, exception_type):
@@ -103,6 +103,12 @@ class DiagnosticMessage:
             if not diagnostic_msg_dict["Termination Description"]:
                 if "Termination Description:" in line:
                     diagnostic_msg_dict["Termination Description"] = get_termination_description(line)
+
+            if not diagnostic_msg_dict["Termination Signal"]:
+                diagnostic_msg_dict["Termination Signal"] = get_diagnostic_value(line, "Termination Signal:")
+
+            if not diagnostic_msg_dict["Terminating Process"]:
+                diagnostic_msg_dict["Terminating Process"] = get_diagnostic_value(line, "Terminating Process:")
 
             if not diagnostic_msg_dict["Triggered by Thread"]:
                 diagnostic_msg_dict["Triggered by Thread"] = get_diagnostic_value(line, "Triggered by Thread:")
