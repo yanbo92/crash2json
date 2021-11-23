@@ -35,7 +35,8 @@ optional arguments:
                         parse other_threads_backtrace to json only
   --thread0_backtrace_only
                         parse thread0_backtrace to json only
+  -s, --simple          output a simple json with only header, exceptionInfo, diagnositcMsg, Thread0Backtrace
   -o OUTPUT_NAME, --output_name OUTPUT_NAME
-                        the .json file you want to save result to, no need
-                        .json suffix
+                        the .json file you want to save result to, no need .json suffix
+
 ```
