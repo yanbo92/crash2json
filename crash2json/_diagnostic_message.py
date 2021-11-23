@@ -28,8 +28,8 @@ class DiagnosticMessage:
         """
 
         # 初始化
-        diagnostic_msg_dict = {"Termination Reason:": {"NameSpace": "", "Code": ""},
-                          "Termination Description:": {}, "Triggered by Thread:": ""}
+        diagnostic_msg_dict = {"Termination Reason": {"NameSpace": "", "Code": ""},
+                               "Termination Description": {}, "Triggered by Thread": ""}
 
         # 字符串处理子方法
         def get_diagnostic_value(string, exception_type):
@@ -85,27 +85,27 @@ class DiagnosticMessage:
             lines = f.readlines()
 
         for line in lines:
-           
-            if not diagnostic_msg_dict["Termination Reason:"]["NameSpace"]:
+
+            if not diagnostic_msg_dict["Termination Reason"]["NameSpace"]:
                 terminate_reason = get_diagnostic_value(line, "Termination Reason:")
                 if terminate_reason:
                     terminate_reason = str(terminate_reason)
                     name_space = terminate_reason.split(",")[0].split(" ")[2]
-                    diagnostic_msg_dict["Termination Reason:"]["NameSpace"] = name_space
+                    diagnostic_msg_dict["Termination Reason"]["NameSpace"] = name_space
 
-            if not diagnostic_msg_dict["Termination Reason:"]["Code"]:
+            if not diagnostic_msg_dict["Termination Reason"]["Code"]:
                 terminate_reason = get_diagnostic_value(line, "Termination Reason:")
                 if terminate_reason:
                     terminate_reason = str(terminate_reason)
                     code = terminate_reason.split(",")[1].split(" ")[2]
-                    diagnostic_msg_dict["Termination Reason:"]["Code"] = code
+                    diagnostic_msg_dict["Termination Reason"]["Code"] = code
 
-            if not diagnostic_msg_dict["Termination Description:"]:
+            if not diagnostic_msg_dict["Termination Description"]:
                 if "Termination Description:" in line:
-                    diagnostic_msg_dict["Termination Description:"] = get_termination_description(line)
+                    diagnostic_msg_dict["Termination Description"] = get_termination_description(line)
 
-            if not diagnostic_msg_dict["Triggered by Thread:"]:
-                diagnostic_msg_dict["Triggered by Thread:"] = get_diagnostic_value(line, "Triggered by Thread:")
+            if not diagnostic_msg_dict["Triggered by Thread"]:
+                diagnostic_msg_dict["Triggered by Thread"] = get_diagnostic_value(line, "Triggered by Thread:")
 
         return diagnostic_msg_dict
 
@@ -119,4 +119,5 @@ class DiagnosticMessage:
         json_str = json.dumps(self.crash_dict)
         with open("{}.json".format(json_name), "w") as json_file:
             json_file.write(json_str)
+
 

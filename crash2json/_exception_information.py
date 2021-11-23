@@ -29,7 +29,7 @@ class ExceptionInformation:
         """
 
         # 初始化
-        exception_dict = {"Exception Type:": "", "Exception Codes:": "", "Exception Note:": ""}
+        exception_dict = {"Exception Type": "", "Exception Codes": "", "Exception Note": ""}
 
         # 字符串处理子方法
         def get_exception_value(string, exception_type):
@@ -42,14 +42,14 @@ class ExceptionInformation:
             lines = f.readlines()
 
         for line in lines:
-            if not exception_dict["Exception Type:"]:
-                exception_dict["Exception Type:"] = get_exception_value(line, "Exception Type:")
+            if not exception_dict["Exception Type"]:
+                exception_dict["Exception Type"] = get_exception_value(line, "Exception Type:")
 
-            if not exception_dict["Exception Codes:"]:
-                exception_dict["Exception Codes:"] = get_exception_value(line, "Exception Codes:")
+            if not exception_dict["Exception Codes"]:
+                exception_dict["Exception Codes"] = get_exception_value(line, "Exception Codes:")
 
-            if not exception_dict["Exception Note:"]:
-                exception_dict["Exception Note:"] = get_exception_value(line, "Exception Note:")
+            if not exception_dict["Exception Note"]:
+                exception_dict["Exception Note"] = get_exception_value(line, "Exception Note:")
 
         return exception_dict
 

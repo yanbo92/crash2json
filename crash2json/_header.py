@@ -50,8 +50,8 @@ class Header:
             return line.split(":")[1].replace("\n", "").replace("     ", "").replace("    ", "").replace("   ", "")
 
         # 初始化
-        header_dict = {"environments": get_environments(), "Incident Identifier": "", "CrashReporter Key:": "",
-                       "Hardware Model:": "", "Process": "", "Path": "", "Identifier": "", "Version": "",
+        header_dict = {"environments": get_environments(), "Incident Identifier": "", "CrashReporter Key": "",
+                       "Hardware Model": "", "Process": "", "Path": "", "Identifier": "", "Version": "",
                        "Code Type": "", "Role": "", "Parent Process": "", "Coalition": "", "Date/Time": "",
                        "Launch Time": "", "OS Version": "", "Release Type": "", "Baseband Version": "",
                        "Report Version": ""}

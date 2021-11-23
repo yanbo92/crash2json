@@ -120,7 +120,7 @@ class ExceptionBacktrace:
     def get_thread_info(self, thread):
 
         # 初始化
-        thread_info_dict = {"name": "", "stackFrames:": []}
+        thread_info_dict = {"name": "", "stackFrames": []}
 
         # 线程内容分行
         thread_lines = thread.split("\n")
@@ -131,7 +131,7 @@ class ExceptionBacktrace:
                 thread_info_dict["name"] = strs[1]
             else:
                 if "0x" in line:
-                    thread_info_dict["stackFrames:"].append(self.get_stack_frame_info(line))
+                    thread_info_dict["stackFrames"].append(self.get_stack_frame_info(line))
 
         return thread_info_dict
 
