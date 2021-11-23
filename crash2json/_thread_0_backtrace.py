@@ -14,6 +14,15 @@ class BacktraceForThread0:
         self.crash_file = crash_file
         self.crash_dict = OrderedDict()
         self.crash_dict = self.get_crash_thread_info()
+        self.simple_dict = self.get_simple_dict()
+
+    def get_simple_dict(self):
+        simple_dict = self.crash_dict
+        for i in simple_dict['stackFrames:']:
+            i.pop('address')
+            i.pop('byteOffset')
+        return simple_dict
+
 
     def get_stack_frame_info(self, line):
         """
