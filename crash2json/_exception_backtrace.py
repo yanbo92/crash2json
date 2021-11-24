@@ -38,7 +38,7 @@ class ExceptionBacktrace:
 
         # 地址，特征明显
         for s in strs:
-            if "0x" in s:
+            if "0x" in s and execute_dict["address"] == '':
                 execute_dict["address"] = s
 
         # 二进制文件，为了处理空格会导致字符串不完整，采用求差值拼接形式

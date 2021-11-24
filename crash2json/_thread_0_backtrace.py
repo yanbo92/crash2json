@@ -17,7 +17,7 @@ class BacktraceForThread0:
         self.simple_dict = self.get_simple_dict()
 
     def get_simple_dict(self):
-        simple_dict = self.crash_dict
+        simple_dict = self.get_crash_thread_info()
         for i in simple_dict["stackFrames"]:
             i.pop("address")
             i.pop("byteOffset")
@@ -47,7 +47,7 @@ class BacktraceForThread0:
 
         # 地址，特征明显
         for s in strs:
-            if "0x0" in s:
+            if "0x" in s and execute_dict["address"] == '':
                 execute_dict["address"] = s
 
         # 二进制文件，为了处理空格会导致字符串不完整，采用求差值拼接形式
@@ -158,3 +158,4 @@ class BacktraceForThread0:
         json_str = json.dumps(self.crash_dict)
         with open("{}.json".format(json_name), "w") as json_file:
             json_file.write(json_str)
+
