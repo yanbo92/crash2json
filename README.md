@@ -1,4 +1,4 @@
-![example workflow](https://github.com/yanbo92/crash2json/actions/workflows/publish-to-test-pypi.yml/badge.svg)
+![publish to pypi](https://github.com/yanbo92/crash2json/actions/workflows/publish-to-test-pypi.yml/badge.svg)
 
 # crash2json
 将Apple Crash Report崩溃文件(.crash后缀)解析成json文件的python模块。
