@@ -8,7 +8,7 @@ import os
 from collections import OrderedDict
 
 
-class BacktraceForThread0:
+class BacktraceForTriggerThread:
     def __init__(self, crash_file):
         """"初始化方法"""
         self.crash_file = crash_file

@@ -6,7 +6,7 @@ from crash2json._header import Header
 from crash2json._exception_information import ExceptionInformation
 from crash2json._diagnostic_message import DiagnosticMessage
 from crash2json._exception_backtrace import ExceptionBacktrace
-from crash2json._thread_0_backtrace import BacktraceForThread0
+from crash2json._trigger_thread_backtrace import BacktraceForTriggerThread
 from crash2json._other_threads_backtrace import BacktraceForAllThreads
 from crash2json._crashed_thread_state import CrashThreadState
 from crash2json._binary_image import BinaryImage
@@ -23,7 +23,7 @@ class Crash2Json:
         self.exception_information = ExceptionInformation(crash_file)
         self.diagnostic_message = DiagnosticMessage(crash_file)
         self.exception_backtrace = ExceptionBacktrace(crash_file)
-        self.thread_0_backtrace = BacktraceForThread0(crash_file)
+        self.thread_0_backtrace = BacktraceForTriggerThread(crash_file)
         self.other_threads_backtrace = BacktraceForAllThreads(crash_file)
         self.crashed_thread_state = CrashThreadState(crash_file)
         self.binary_image = BinaryImage(crash_file)
@@ -34,7 +34,7 @@ class Crash2Json:
             "exceptionInformation": self.exception_information.crash_dict,
             "diagnosticMessages": self.diagnostic_message.crash_dict,
             "exceptionBacktrace": self.exception_backtrace.crash_dict,
-            "backtraceFoThread0": self.thread_0_backtrace.crash_dict,
+            "backtraceForTriggerThread": self.thread_0_backtrace.crash_dict,
             "backtraceForOtherThreads": self.other_threads_backtrace.crash_dict,
             "crashThreadState": self.crashed_thread_state.crash_dict,
             "binaryImagesList": self.binary_image.crash_dict
