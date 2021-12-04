@@ -10,6 +10,16 @@ sys.path.append(os.path.dirname(__file__))
 from crash2json._crash2json import Crash2Json
 
 
+def check_version(crash_file):
+    with open(crash_file) as f:
+        lines = f.readlines()
+
+    for line in lines:
+        if "iPhone OS 15" in line:
+            print("This crash file version is higher than 15, no need to parse")
+            exit(1)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("crash_file")
@@ -40,6 +50,8 @@ def main():
 
     crash_file = args.crash_file
     output_name = args.output_name
+
+    check_version(crash_file)
 
     if args.binary_image_list_only:
         Crash2Json(crash_file).binary_image.toJson(output_name)
@@ -76,6 +88,7 @@ def main():
     if args.simple:
         Crash2Json(crash_file).toSimpleJson(output_name)
         exit(0)
+
     Crash2Json(crash_file).toJson(output_name)
 
 
